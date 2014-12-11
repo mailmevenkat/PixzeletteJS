@@ -1,0 +1,605 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <title>Pixzelette JS - Image manipulation library</title>
+        <link rel="shortcut icon" href="res/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="res/favicon.ico" type="image/x-icon">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <style>
+        body{
+            background:#fff;
+            color:#333;
+            font-family: 'Open Sans';
+        }
+        #header{
+            width: 80%;
+            height: 70px;
+            background: #E62F17;
+            color: #fff;
+            padding: 0 10%;
+            text-align: left;
+            line-height: 70px;
+            box-shadow: 0px 0px 5px #333;
+            position: fixed;
+            top:0;
+            left:0;
+        }
+        #header .logo{
+            font-size: 30px;   
+        }
+        #header .menu{
+            float: right;
+        }
+            
+        #header .menu a{
+            color: inherit;
+            text-decoration: none;
+            list-style: none;
+            display: inline-block;
+            padding: 0 10px;
+            font-size: 20px;
+        }
+        #header .menu a:hover{
+            color: #f1f1f1;
+        }
+        #wrapper{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+        }
+        #about, #filters, #blend, #custom, #basics{
+            width: 84%;
+            margin: 30px auto; 
+            text-align: center;
+        }
+        
+        #filters, #blend, #custom, #basics{
+            padding: 50px 0;
+            margin: 0 8%;
+            border-bottom: 1px #E62F17 solid;   
+        }
+        #about{
+            padding: 30px 8%;
+            background: #f1f1f1;
+            font-size: 20px;
+        }
+        #container{
+            margin: 30px auto; 
+            text-align:center;
+            width:100%;
+        }
+        #container .image-holder{
+            display: inline-block;
+        }
+        img{
+            width: 400px;
+            height: auto; 
+            margin: 5px;
+            display:inline-block;
+        }
+        #buttons{
+            margin:0 auto;
+            text-align:center;
+        }
+        .download{
+            font-size: 15px;
+        }
+        .download a, input[type=button], .button-b{
+            display:inline-block;
+            cursor: pointer;
+            background: #fff;
+            padding:5px 10px;
+            margin: 5px 1px;
+            border: 1px #E62F17 solid;
+            border-radius: 20px;
+            color: #E62F17;
+            transition: 0.5s background, 0.5s color;
+            outline: none;
+            text-decoration: none;
+        }
+        .download a:hover, input[type=button]:hover{
+            background: #E62F17;
+            color: #fff;
+        }
+        .button-b{
+            font-size: 13px;
+            padding: 2px 10px;
+        }
+        .button-b input[type=button]{
+            border: none;
+            border-radius: 0;
+            margin:0 3px;
+            height: 100%;
+            padding: 0 3px;
+        }    
+        .title{
+            width: 100%;
+            color: #E62F17;
+            font-size: 24px;
+            text-align:center;
+        }
+        .guide-line{
+            width: 96%;
+            padding: 10px 2%;
+            background: #EBFFDE;
+            text-align: left;
+        }
+            
+        .guide-line code{
+            border-left:4px #E62F17 solid;
+            margin-left:2px;
+            padding:3px 5px;
+            background: #fff;
+            display: block;
+        }
+        .guide-line code span{
+            color: #888;   
+        }
+        .guide-line li{
+            font-size: 14px;
+        }
+        .guide-line li a{
+            text-decoration: none;
+            color: #E62F17;
+            font-size: 20px;
+        }
+        .guide-line li a:hover{
+            text-decoration: underline;
+        }
+        .guide-line span.range{
+            margin: 0 10px;
+            color: #888;
+        }
+        #copyrights{
+            text-align: center;
+            padding: 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        #copyrights a{
+            color: #666;
+        }
+        #copyrights a:hover{
+            color: #333;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <span class="logo"> Pixzelette JS </span>
+                <div class="menu">
+                    <a href="#guide">Learn</a>
+                    <a href="docs/">Hack</a>
+                    <a href="#" class="fa fa-github"></a>
+                </div>
+            </div>
+            <div id="about" style="margin-top: 70px;">
+                <p>A Lightweight native JavaScript library for image manipulation on/using canvas.</p>
+                <div class="download">
+                    <h3>Download</h3>
+                    <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.js" download> Hack it! (28.1kb) </a>
+                    <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.min.js" download> Minified (10.6kb) </a>
+                </div>
+            </div>
+            <h3 class="title" style="text-decoration: underline;" id="guide">#Learn</h3>
+            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
+                <h3>Include Pixzelette:</h3>
+                <code>&lt;script type="text/javascript" src="path/to/pixzelette.min.js"&gt;&lt;/script&gt;</code>
+            </div>
+            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
+                <h3>Initialise Pixzelette:</h3>
+                <code>
+                    var element = document.getElementsByTagName("img")[0];
+                </code>
+                    <p style="border-bottom: 1px #ccc solid"></p>
+                <code>
+                    var element = document.getElementsByTagName("canvas")[0];
+                </code><br>
+                <code>
+                    var Pixzel = new Pixzelette(element); <span>//element must be a valid image or canvas</span>
+                    <p style="border-bottom: 1px #ccc solid"></p>
+                    var args = {w: width, h: height, x: x-axis, y: y-axis}<span>//args must be a valid javascript object</span>
+                    <br>var Pixzel = new Pixzelette(element, args); <span>//element must be a valid image or canvas</span>
+                </code>
+            </div>
+            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
+                <h3>Types of manipulation:</h3>
+                <ul>
+                    <li><a href="#basics">Basics</a></li>
+                    <li><a href="#blend">Blends</a></li>
+                    <li><a href="#filters">Filters</a></li>
+                    <li><a href="#custom">Custom Gradients</a></li>
+                </ul>
+            </div>
+            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
+                <h3>How to get data after manipulation?</h3>
+                <code>Pixzel.getCanvas(); <span>//returns canvas element</span></code>
+                <p style="border-bottom: 1px #ccc solid"></p>
+                <code>var type = "jpg"; //must be a valid javascript string. Default is png</code>
+                <code>var quality = 0.8; //must be a valid javascript integer or float. Range: 0 to 1. Default is 1</code>
+                <code>Pixzel.getImage(type, quality); <span>//returns image element</span></code>
+                <code>Pixzel.getDataURL(type, quality); <span>//returns base64 encoded data url</span></code>
+                <p>Available types:</p>
+                    <ul>
+                        <li>png</li>   
+                        <li>jpg</li>   
+                        <li>jpeg</li>   
+                        <li>webp</li>   
+                    </ul>
+                <p style="border-bottom: 1px #ccc solid"></p>
+                <code>Pixzel.getImageData(); <span>//returns pixel data</span></code>
+            </div>
+            <div class="guide-line" style="width:80%; margin: 0 8%;">
+                <h3>Note:</h3>
+                <p>This is possible</p>
+                <code>Pixzel.effect({brightness: 0.1}).filter("cassie"); <span>//all manipulators, returns back the object</span></code>
+                <p>This is not possible</p>
+                <code>Pixzel.getCanvas().filter("cassie"); <span>//since getCanvas(), returns back canvas element</span></code>
+            </div>
+            <div id="basics">
+                <h3 class="title">#Basics</h3>
+                <div class="guide-line">
+                    <h3>Basic:</h3>
+                        <code>var basics = {brightness: 0.5, contrast: 0.5, red: 0.3};</code>
+                        <code>Pixzel.effect(basics);<span>//argument passed must be a valid javascript object</span></code>
+                    <p>Available Effects:</p>
+                    <ul>
+                        <li>brightness <span class="range">[ -1 to 1 ]</span></li>
+                        <li>contrast <span class="range">[ -1 to 1 ]</span></li>
+                        <li>sepia <span class="range">[ -1 to 1 ]</span></li>
+                        <li>hue <span class="range">[ -1 to 1 ]</span></li>
+                        <li>saturation <span class="range">[ -1 to 1 ]</span></li>
+                        <li>value <span class="range">[ -1 to 1 ]</span></li>
+                        <li>red <span class="range">[ 0 to 1 ]</span></li>
+                        <li>green <span class="range">[ 0 to 1 ]</span></li>
+                        <li>blue <span class="range">[ 0 to 1 ]</span></li>
+                        <li>alpha <span class="range">[ 0 to 1 ]</span></li>
+                        <li>desaturate <span class="range">[ -1 to 1 ]</span></li>
+                    </ul>
+                </div>
+                <div id="container">
+                    <div class="image-holder">
+                        <p>Original</p>
+                        <img id="bBasics" src="res/1.jpg"></img>
+                    </div>
+                    <div class="image-holder">
+                        <p>Manipulated</p>
+                        <img id="aBasics" src="res/1.jpg"></img>
+                    </div>
+                </div>
+                <div id="buttons">    
+                    <div class="button-b">
+                        <span>Brightness</span>
+                        <input type="button" value="+" onclick= "applyBasics('bPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('bMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Contrast</span>
+                        <input type="button" value="+" onclick= "applyBasics('cPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('cMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Sepia</span>
+                        <input type="button" value="+" onclick= "applyBasics('sPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('sMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Hue</span>
+                        <input type="button" value="+" onclick= "applyBasics('hPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('hMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Saturate</span>
+                        <input type="button" value="+" onclick= "applyBasics('saPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('saMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Value</span>
+                        <input type="button" value="+" onclick= "applyBasics('vPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('vMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Red</span>
+                        <input type="button" value="+" onclick= "applyBasics('rPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('rMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Green</span>
+                        <input type="button" value="+" onclick= "applyBasics('gPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('gMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Blue</span>
+                        <input type="button" value="+" onclick= "applyBasics('blPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('blMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Alpha</span>
+                        <input type="button" value="+" onclick= "applyBasics('aPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('aMinus')">
+                    </div>
+                    <div class="button-b">
+                        <span>Desaturate</span>
+                        <input type="button" value="+" onclick= "applyBasics('dPlus')">
+                        <input type="button" value="-" onclick= "applyBasics('dMinus')">
+                    </div>
+                    <input type="button" value="reset" onclick= "applyBasics('reset')">
+                </div>
+            </div>
+            <div id="blend">
+                <h3 class="title">#Blends</h3>
+                <div class="guide-line">
+                    <h3>Blends:</h3>
+                        <code>
+                            var element = document.getElementsByTagName("img")[1]; <span>//must be a valid image</span>
+                        </code>
+                            <p style="border-bottom: 1px #ccc solid"></p>
+                        <code>
+                            var element = document.getElementsByTagName("canvas")[1]; <span>//must be a valid canvas</span>
+                        </code><br>
+                        <code>var mode = "addition"; <span>//must be a valid javascript string</span></code>
+                        <code>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span></code>
+                        <code>Pixzel.blend(element, mode, opacity);</code>
+                    <p>Available blends: (19 blends)</p>
+                    <ul>
+                        <li>none</li>
+                        <li>addition</li>
+                        <li>subtract</li>
+                        <li>multiply</li>
+                        <li>divide</li>
+                        <li>overlay</li>
+                        <li>screen</li>
+                        <li>darken</li>
+                        <li>lighten</li>
+                        <li>dodge</li>
+                        <li>burn</li>
+                        <li>soft light</li>
+                        <li>hard light</li>
+                        <li>difference</li>
+                        <li>exclusion</li>
+                        <li>hue</li>
+                        <li>saturation</li>
+                        <li>color</li>
+                        <li>luminosity</li>
+                    </ul>
+                </div>
+                <div id="container">
+                    <div class="image-holder">
+                        <p>Originals</p>
+                        <img id="bBlended" src="res/1.jpg" style="width:240px; display:block;"></img>
+                        <img id="bBlended" src="res/2.jpg"  style="width:240px; display:block;"></img>
+                    </div>
+                    <div class="image-holder">
+                        <p>Blended (opacity: 1)</p>
+                        <img id="aBlended" src="res/1.jpg" style="display:block;"></img>
+                    </div>
+                </div>
+                <div id="buttons">    
+                    <input type="button" value="none" onclick= "applyBlend('none')">
+                    <input type="button" value="addition" onclick= "applyBlend('addition')">
+                    <input type="button" value="subtract" onclick= "applyBlend('subtract')">
+                    <input type="button" value="multiply" onclick= "applyBlend('multiply')">
+                    <input type="button" value="divide" onclick= "applyBlend('divide')">
+                    <input type="button" value="overlay" onclick= "applyBlend('overlay')">
+                    <input type="button" value="screen" onclick= "applyBlend('screen')">
+                    <input type="button" value="darken" onclick= "applyBlend('darken')">
+                    <input type="button" value="lighten" onclick= "applyBlend('lighten')">
+                    <input type="button" value="dodge" onclick= "applyBlend('dodge')">
+                    <input type="button" value="burn" onclick= "applyBlend('burn')">
+                    <input type="button" value="soft light" onclick= "applyBlend('soft light')">
+                    <input type="button" value="hard light" onclick= "applyBlend('hard light')">
+                    <input type="button" value="difference" onclick= "applyBlend('difference')">
+                    <input type="button" value="exclusion" onclick= "applyBlend('exclusion')">
+                    <input type="button" value="hue" onclick= "applyBlend('hue')">
+                    <input type="button" value="saturation" onclick= "applyBlend('saturation')">
+                    <input type="button" value="color" onclick= "applyBlend('color')">
+                    <input type="button" value="luminosity" onclick= "applyBlend('luminosity')">
+                    <input type="button" value="reset" onclick= "applyBlend('reset')">
+                </div>
+            </div>
+            <div id="filters">
+                <h3 class="title">#Filters</h3>
+                <div class="guide-line">
+                    <h3>Filter:</h3>
+                        <code>var filter = "tamil";</code>
+                        <code>Pixzel.filter(filter);<span>//argument passed must be a valid javascript string</span></code>
+                    <p>Available Filters: (17 filters)</p>
+                    <ul>
+                        <li>antiq</li>
+                        <li>aqua</li>
+                        <li>beat</li>
+                        <li>cassie</li>
+                        <li>deveil</li>
+                        <li>ember</li>
+                        <li>evening</li>
+                        <li>hello</li>
+                        <li>may</li>
+                        <li>natalie</li>
+                        <li>nilam</li>
+                        <li>retro</li>
+                        <li>shallow</li>
+                        <li>sketchy</li>
+                        <li>tamil</li>
+                        <li>valet</li>
+                        <li>zephyr</li>
+                    </ul>
+                </div>
+                <div id="container">
+                    <div class="image-holder">
+                        <p>Original</p>
+                        <img id="bFiltered" src="res/1.jpg"></img>
+                    </div>
+                    <div class="image-holder">
+                        <p>Filtered</p>
+                        <img id="aFiltered" src="res/1.jpg"></img>
+                    </div>
+                </div>
+                <div id="buttons">    
+                    <input type="button" value="antiq" onclick= "applyFilter('antiq')">
+                    <input type="button" value="aqua" onclick= "applyFilter('aqua')">
+                    <input type="button" value="beat" onclick= "applyFilter('beat')">
+                    <input type="button" value="cassie" onclick= "applyFilter('cassie')">
+                    <input type="button" value="deveil" onclick= "applyFilter('deveil')">
+                    <input type="button" value="ember" onclick= "applyFilter('ember')">
+                    <input type="button" value="evening" onclick= "applyFilter('evening')">
+                    <input type="button" value="hello" onclick= "applyFilter('hello')">
+                    <input type="button" value="may" onclick= "applyFilter('may')">
+                    <input type="button" value="natalie" onclick= "applyFilter('natalie')">
+                    <input type="button" value="nilam" onclick= "applyFilter('nilam')">
+                    <input type="button" value="retro" onclick= "applyFilter('retro')">
+                    <input type="button" value="shallow" onclick= "applyFilter('shallow')">
+                    <input type="button" value="sketchy" onclick= "applyFilter('sketchy')">
+                    <input type="button" value="tamil" onclick= "applyFilter('tamil')">
+                    <input type="button" value="valet" onclick= "applyFilter('valet')">
+                    <input type="button" value="zephyr" onclick= "applyFilter('zephyr')">
+                    <input type="button" value="reset" onclick= "applyFilter('reset')">
+                </div>
+            </div>
+            <div id="custom">
+                <h3 class="title">#Custom Gradients</h3>
+                <div class="guide-line">
+                    <h3>Custom Gradients:</h3>
+                        <code>var gradient = "vignette"; <span>//must be a valid javascript string</span></code>
+                        <code>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span></code>
+                        <code>Pixzel.custom(gradient, opacity);</code>
+                    <p>Available Custom gradients: (8 gradients)</p>
+                    <ul>
+                        <li>vignette</li>
+                        <li>red</li>
+                        <li>green</li>
+                        <li>blue</li>
+                        <li>orange</li>
+                        <li>purple</li>
+                        <li>yellow</li>
+                        <li>cream</li>
+                    </ul>
+                </div>
+                <div id="container">
+                    <div class="image-holder">
+                        <p>Original</p>
+                        <img id="bCustom" src="res/1.jpg"></img>
+                    </div>
+                    <div class="image-holder">
+                        <p>Gradients ( opacity: 1) </p>
+                        <img id="aCustom" src="res/1.jpg"></img>
+                    </div>
+                </div>
+                <div id="buttons">    
+                    <input type="button" value="vignette" onclick= "applyCustom('vignette')">
+                    <input type="button" value="red" onclick= "applyCustom('red')">
+                    <input type="button" value="green" onclick= "applyCustom('green')">
+                    <input type="button" value="blue" onclick= "applyCustom('blue')">
+                    <input type="button" value="orange" onclick= "applyCustom('orange')">
+                    <input type="button" value="purple" onclick= "applyCustom('purple')">
+                    <input type="button" value="yellow" onclick= "applyCustom('yellow')">
+                    <input type="button" value="cream" onclick= "applyCustom('cream')">
+                    <input type="button" value="reset" onclick= "applyCustom('reset')">
+                </div>
+            </div>
+            <div id="copyrights">
+                Code licensed under <a href="http://opensource.org/licenses/mit-license.html" target="_blank">MIT License</a> | Created by <a href="https://twitter.com/mailmevenkat25" target="_blank">Venkateswaran Selvan</a>
+            </div>
+            </div>
+            <script type="text/javascript" src="src/pixzelette.min.js"></script>
+                <script>
+                  window.onload = function(){
+                      bImage = document.querySelector("#bBasics");
+                      bConfig = {
+                          brightness: 0,
+                          contrast: 0,
+                          sepia: 0,
+                          hue: 0,
+                          saturate: 0,
+                          value: 1,
+                          red: 0,
+                          green: 0,
+                          blue: 0,
+                          alpha: 1,
+                          desaturate: 0   
+                      }
+                      fImage = document.querySelector("#bFiltered");
+                      bImage0 = document.querySelectorAll("#bBlended")[0];
+                      bImage1 = document.querySelectorAll("#bBlended")[1];
+                      cImage = document.querySelector("#bCustom");
+                  };
+                      function applyFilter(filter){
+                            var Pixzel = new Pixzelette(fImage);
+                            Pixzel.filter(filter);
+                            document.querySelector("#aFiltered").src = Pixzel.getDataURL();
+                      }
+                      function applyBlend(blend){
+                            if(blend == "reset")
+                                document.querySelector("#aBlended").src = bImage0.src;    
+                            else {
+                                var Pixzel = new Pixzelette(bImage0);
+                                Pixzel.blend(bImage1, blend, 1);
+                                document.querySelector("#aBlended").src = Pixzel.getDataURL();
+                            }
+                      }
+                      function applyCustom(gradient){
+                                if(gradient != "reset"){
+                                    var Pixzel = new Pixzelette(cImage);
+                                    Pixzel.custom(gradient, 1);
+                                    document.querySelector("#aCustom").src = Pixzel.getDataURL();
+                                } else
+                                    document.querySelector("#aCustom").src = cImage.src;
+                      }
+
+                      function applyBasics(basics){
+                                var Pixzel = new Pixzelette(bImage);
+                                var config = {};
+                                switch(basics){
+                                        case "bPlus": bConfig.brightness += 0.1; break;
+                                        case "bMinus": bConfig.brightness -= 0.1; break;
+                                        case "cPlus": bConfig.contrast += 0.1; break;
+                                        case "cMinus": bConfig.contrast -= 0.1; break;
+                                        case "sPlus": bConfig.sepia += 0.1;break;
+                                        case "sMinus": bConfig.sepia -= 0.1; break;
+                                        case "hPlus": bConfig.hue += 0.1; break;
+                                        case "hMinus": bConfig.hue -= 0.1; break;
+                                        case "saPlus": bConfig.saturate += 0.1; break;
+                                        case "saMinus": bConfig.saturate -= 0.1; break;
+                                        case "vPlus": bConfig.value += 0.1; break;
+                                        case "vMinus": bConfig.value -= 0.1; break;
+                                        case "rPlus": bConfig.red += 0.1; break;
+                                        case "rMinus": bConfig.red -= 0.1; break;
+                                        case "gPlus": bConfig.green += 0.1; break;
+                                        case "gMinus": bConfig.green -= 0.1; break;
+                                        case "blPlus": bConfig.blue += 0.1; break;
+                                        case "blMinus": bConfig.blue -= 0.1; break;
+                                        case "aPlus": bConfig.alpha += 0.1; break;
+                                        case "aMinus": bConfig.alpha -= 0.1; break;
+                                        case "dPlus":   bConfig.desaturate = 1;
+                                                        bConfig.desaturate += 0.1; break;
+                                        case "dMinus":  bConfig.desaturate = 1;
+                                                        bConfig.desaturate -= 0.1; break;
+                                }
+
+                                for(var key in bConfig){
+                                    if(bConfig[key] != 0)
+                                        config[key] = bConfig[key];
+                                }
+
+                                Pixzel.effect(config);
+
+                                if(basics == "reset"){  
+                                    for(var key in bConfig){
+                                        if(key == "alpha" || key == "value")
+                                            bConfig[key] = 1;
+                                        else
+                                            bConfig[key] = 0;
+                                    }
+                                    document.querySelector("#aBasics").src = bImage.src;
+                                }
+                                else
+                                    document.querySelector("#aBasics").src = Pixzel.getDataURL();
+                      }
+                </script>
+    </body>
+</html>
