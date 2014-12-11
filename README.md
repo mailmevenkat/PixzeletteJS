@@ -10,6 +10,11 @@ A Lightweight native JavaScript library for image manipulation on/using canvas.
 ```javascript
 var Pixzel = new Pixzelette(element); //element must be a valid image or canvas
 ```
+---
+```javascript
+var args = {w: width, h: height, x: x-axis, y: y-axis}//args must be a valid javascript object 
+var Pixzel = new Pixzelette(element, args); //element must be a valid image or canvas
+```
 ####Types of manipulation:
 * [Basics] (#basics)
 * [Blends] (#blends)
