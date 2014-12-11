@@ -1,0 +1,23 @@
+{
+  "name": "PixzeletteJS",
+  "version": "0.0.1",
+  "homepage": "https://github.com/mailmevenkat/PixzeletteJS",
+  "authors": [
+    "Venkateswaran Selvan <mailmevenkat25@gmail.com>"
+  ],
+  "description": "A Lightweight native JavaScript library for image manipulation on/using canvas",
+  "main": "src/pixzelette.min.js",
+  "keywords": [
+    "canvas",
+    "image",
+    "manipulation"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
