@@ -87,7 +87,7 @@ Pixzel.blend(element, mode, opacity);
 var filter = "tamil";
 Pixzel.filter(filter);//argument passed must be a valid javascript string
 ```
-#####Available Filters: (18 filters)
+#####Available Filters: (17 filters)
 * antiq
 * aqua
 * beat
@@ -100,7 +100,6 @@ Pixzel.filter(filter);//argument passed must be a valid javascript string
 * natalie
 * nilam
 * retro
-* saturn
 * shallow
 * sketchy
 * tamil
