@@ -348,8 +348,6 @@
                     
                     case "retro": this.effect({red: 0.1, green: 0.07, blue: 0.1, contrast: 0.1, brightness: 0.25}); break;
                     
-                    case "saturn": this.effect({hue: 0.1}); break;
-                    
                     case "shallow": this.effect({saturate: 1.4, contrast: 0.3, desaturate: 1, brightness: 0.2}).custom("vignette",0.4); break;
                     
                     case "sketchy": this.effect({desaturate: 2.5}); break;
