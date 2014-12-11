@@ -201,7 +201,12 @@
                 <code>
                     var element = document.getElementsByTagName("canvas")[0];
                 </code><br>
-                <code>var Pixzel = new Pixzelette(element); <span>//element must be a valid image or canvas</span></code>
+                <code>
+                    var Pixzel = new Pixzelette(element); <span>//element must be a valid image or canvas</span>
+                    <p style="border-bottom: 1px #ccc solid"></p>
+                    var args = {w: width, h: height, x: x-axis, y: y-axis}<span>//args must be a valid javascript object</span>
+                    <br>var Pixzel = new Pixzelette(element, args); <span>//element must be a valid image or canvas</span>
+                </code>
             </div>
             <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
                 <h3>Types of manipulation:</h3>
