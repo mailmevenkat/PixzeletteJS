@@ -38,11 +38,12 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1 style="font-family: 'Open Sans'; text-transform: none;"><a href="../examples/" style="color:#fff; text-decoration:none;">Pixzelette JS</a></h1>
+                  <h1 style="font-family: 'Open Sans'; text-transform: none;"><a href="../" style="color:#fff; text-decoration:none;">Pixzelette JS</a></h1>
               A Lightweight native JavaScript library for image manipulation on/using canvas.
                 <h2>About Library</h2>
                 <p><b>Creator:</b> Venkateswaran Selvan</p>
-                <p><b>Version:</b> 0.0.1</p>
+                <p><b>Version:</b> 0.0.2</p>
+                <p><b>Changelog:</b> Added callback support</p>
                 <p><b>Language:</b> JavaScript</p>
                 <p><b>Requirement:</b> Browser with canvas support</p>
               </div>
@@ -53,7 +54,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#constructor">&#182;</a>
               </div>
-                <b>Constructor(element, args)</b> 
+                <b>Constructor(element, args, callback)</b> 
                 <ul>
                     <li>element = image or canvas</li>
                     <li>args = {w: width, h: height, x: x-axis, y: y-axis}</li> 
@@ -62,7 +63,7 @@
             <div class="content">
                 <div class='highlight'>
                     <pre>
-        <span class="hljs-keyword">this</span>.Pixzelette = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element,args)</span></span>{
+        <span class="hljs-keyword">this</span>.Pixzelette = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element,args,callback)</span></span>{
             
             <span class="hljs-comment">/*
                 Initializing canvas, context and pixels
@@ -125,7 +126,7 @@
             <span class="hljs-keyword">this</span>.pixels = <span class="hljs-keyword">this</span>.getImageData(); <span class="hljs-comment">//get the image data and assign it to pixels</span>
             <span class="hljs-keyword">this</span>.image.width = <span class="hljs-keyword">this</span>.canvas.width;
             <span class="hljs-keyword">this</span>.image.height = <span class="hljs-keyword">this</span>.canvas.height; 
-            
+             <span class="hljs-keyword">if(<span class="hljs-keyword">typeof</span> callback ) <span class="hljs-string">callback(<span class="hljs-keyword">this</span>)</span>; <span class="hljs-comment">//callback</span>
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>; <span class="hljs-comment">//return the object back</span>
         }
                     </pre>
@@ -137,7 +138,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#effect">&#182;</a>
               </div>
-                <b> function effect (effects)</b> 
+                <b> function effect (effects, callback)</b> 
                 <ul>
                     <li>effects = Javascript Object</li>
                     <li><b>Available effects</b></li>
@@ -159,7 +160,7 @@
             <div class="content">
                 <div class='highlight'>
                     <pre>
-        Pixzelette.prototype.effect = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(effects)</span></span>{
+        Pixzelette.prototype.effect = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(effects, callback)</span></span>{
             
             <span class="hljs-keyword">var</span> color; <span class="hljs-comment">//declares a variable color</span>
             
@@ -299,6 +300,8 @@
             
             <span class="hljs-keyword">this</span>.context.putImageData(<span class="hljs-keyword">this</span>.pixels,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>); <span class="hljs-comment">//updates new pixel to context</span>
             
+            <span class="hljs-keyword">if(<span class="hljs-keyword">typeof</span> callback ) <span class="hljs-string">callback(<span class="hljs-keyword">this</span>)</span>; <span class="hljs-comment">//callback</span>
+            
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
         };
                     </pre>
@@ -310,7 +313,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#blend">&#182;</a>
               </div>
-                <b> function blend(element, mode, opacity)</b> 
+                <b> function blend(element, mode, opacity, callback)</b> 
                 <ul>
                     <li>element = image or canvas</li>
                     <li>mode = string</li>
@@ -341,7 +344,7 @@
             <div class="content">
                 <div class='highlight'>
                     <pre>
-        Pixzelette.prototype.blend = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element, mode, opacity)</span></span>{
+        Pixzelette.prototype.blend = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(element, mode, opacity, callback)</span></span>{
             
             <span class="hljs-keyword">var</span> isImage = element.nodeName.toLowerCase() === <span class="hljs-string">'img'</span>;
             <span class="hljs-keyword">var</span> isCanvas = element.nodeName.toLowerCase() === <span class="hljs-string">'canvas'</span>;
@@ -405,6 +408,8 @@
             
             <span class="hljs-keyword">this</span>.context.globalAlpha = <span class="hljs-number">1</span>; <span class="hljs-comment">//resets global alpha to default</span>
             
+             <span class="hljs-keyword">if(<span class="hljs-keyword">typeof</span> callback ) <span class="hljs-string">callback(<span class="hljs-keyword">this</span>)</span>; <span class="hljs-comment">//callback</span>
+            
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
             
         };
@@ -418,7 +423,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#filter">&#182;</a>
               </div>
-                <b> function filter(name) </b> 
+                <b> function filter(name, callback) </b> 
                 <ul>
                     <li>name = string</li>
                     <li>Available filters</li>
@@ -492,6 +497,8 @@
             
             <span class="hljs-keyword">this</span>.context.putImageData(<span class="hljs-keyword">this</span>.pixels,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>); <span class="hljs-comment">//updates new pixels to context</span>
             
+             <span class="hljs-keyword">if(<span class="hljs-keyword">typeof</span> callback ) <span class="hljs-string">callback(<span class="hljs-keyword">this</span>)</span>; <span class="hljs-comment">//callback</span>
+            
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
         };
                     </pre>
@@ -503,7 +510,7 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#custom">&#182;</a>
               </div>
-                <b> function custom(mode, value) </b> 
+                <b> function custom(mode, value, callback) </b> 
                 <ul>
                     <li>mode = string</li>
                     <li>value = float</li>
@@ -523,7 +530,7 @@
         <div class="content">
             <div class='highlight'>
                 <pre>
-        Pixzelette.prototype.custom = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(mode, value)</span></span>{
+        Pixzelette.prototype.custom = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(mode, value, callback)</span></span>{
             
             <span class="hljs-keyword">var</span> intensity = <span class="hljs-number">1</span>;
             <span class="hljs-keyword">var</span> rad = <span class="hljs-built_in">Math</span>.sqrt((<span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.canvas.width,<span class="hljs-number">2</span>) + <span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.canvas.height,<span class="hljs-number">2</span>)) / <span class="hljs-number">2</span>);
@@ -567,6 +574,8 @@
             }
             
             <span class="hljs-keyword">this</span>.context.putImageData(<span class="hljs-keyword">this</span>.pixels,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>); <span class="hljs-comment">//updates the new pixels to context</span>
+            
+             <span class="hljs-keyword">if(<span class="hljs-keyword">typeof</span> callback ) <span class="hljs-string">callback(<span class="hljs-keyword">this</span>)</span>; <span class="hljs-comment">//callback</span>
             
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
         }

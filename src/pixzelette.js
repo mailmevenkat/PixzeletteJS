@@ -1,7 +1,7 @@
 /*
     Contributor: Venkateswaran mailmevenkat25(at)gmail(dot)com
     Project: pixzelette.js
-    Version: 0.0.1
+    Version: 0.0.2
     Language: JavaScript
     Requirement: Browser with canvas support
 */
@@ -9,17 +9,20 @@
 (function(){
     
         /*
-            Public function: Constructor(element, args) 
+            Public function: Constructor(element, args, callback) 
              i. Initialises Pixzelette
              ii. element = image or canvas
              iii. args = {w: width, h: height, x: x-axis, y: y-axis} 
              iv. returns object
         */
-        this.Pixzelette = function(element,args){
-            
+        this.Pixzelette = function(element, args, callback){
+
+            if(typeof element == undefined || element == null) return null; //returns null when no args are provided
+
             /*
                 Initializing canvas, context and pixels
             */
+            
             this.canvas = null; 
             this.context = null;
             this.pixels = null;
@@ -37,19 +40,21 @@
             
             var isImage = element.nodeName.toLowerCase() === 'img';
             var isCanvas = element.nodeName.toLowerCase() === 'canvas'; 
-            
+
             /*
                 If the given element is image, 
                  i. Create a canvas and assign it to variable 'canvas'
                  ii. Draw the image on the new canvas using context.
             */
-            if(typeof args !== 'undefined')
+
+            if(typeof args !== 'undefined' && args != null)
             {
                 this.args.w = typeof args.w !== 'undefined'? args.w : this.args.w;
                 this.args.h = typeof args.h !== 'undefined'? args.h : this.args.h;
                 this.args.x = typeof args.x !== 'undefined'? args.x : this.args.x;
                 this.args.y = typeof args.y !== 'undefined'? args.y : this.args.y;
             }
+
             if(isImage){
                 this.canvas = document.createElement('canvas');
                 this.canvas.width = this.args.w;
@@ -77,13 +82,15 @@
             
             this.pixels = this.getImageData(); //get the image data and assign it to pixels
             this.image.width = this.canvas.width;
-            this.image.height = this.canvas.height; 
+            this.image.height = this.canvas.height;
+     
+            if (typeof callback == "function") callback(this); //callback
             
             return this; //return the object back
         }
         
         /*
-            Public function: effect(effects) 
+            Public function: effect(effects, callback) 
              i. Accepts a javascript object as argument
              ii. Returns object
              
@@ -91,10 +98,9 @@
                 i.brightness ii.contrast iii.sepia iv.hue v.saturate
                 vi.value vii.red vii.green ix.blue x.alpha xi.desaturate  
         */
-        Pixzelette.prototype.effect = function(effects){
+        Pixzelette.prototype.effect = function(effects, callback){
             
             var color; //declares a variable color
-            
             if(effects == null){ //if no effects is provided, return object
                 return this;
             }
@@ -231,11 +237,13 @@
             
             this.context.putImageData(this.pixels,0,0); //updates new pixel to context
             
+            if (typeof callback == "function") callback(this); //callback
+            
             return this;
         };
     
         /*
-            Public function: blend(element, mode, opacity) 
+            Public function: blend(element, mode, opacity, callback) 
              i. Accepts element, mode and opacity as arguments
              ii. Returns back object
              
@@ -245,7 +253,7 @@
                 xi.soft light xii.hard light xiii.difference xiv.exclusion
                 xv.hue xvi.saturation xvii.color xviii.luminosity
         */
-        Pixzelette.prototype.blend = function(element, mode, opacity){
+        Pixzelette.prototype.blend = function(element, mode, opacity, callback){
             
             var isImage = element.nodeName.toLowerCase() === 'img';
             var isCanvas = element.nodeName.toLowerCase() === 'canvas';
@@ -305,6 +313,8 @@
             
             this.context.globalAlpha = 1; //resets global alpha to default
             
+            if (typeof callback == "function") callback(this); //callback
+            
             return this;
             
         };
@@ -320,7 +330,7 @@
                 vi.saturn vii.uranus viii.neptune 
         */
         
-        Pixzelette.prototype.filter = function(name){
+        Pixzelette.prototype.filter = function(name, callback){
             
             switch(name){
                     
@@ -361,21 +371,24 @@
                     default: this.effect();
             }
             
+            
+            if (typeof callback == "function") callback(this); //callback
+            
             this.context.putImageData(this.pixels,0,0); //updates new pixels to context
             
             return this;
         };
     
         /*
-            Public function: custom(mode, value)
+            Public function: custom(mode, value, callback)
              i. Customized gradients filters
         */
-        Pixzelette.prototype.custom = function(mode, value){
+        Pixzelette.prototype.custom = function(mode, value, callback){
             
             var intensity = 1;
             var rad = Math.sqrt((Math.pow(this.canvas.width,2) + Math.pow(this.canvas.height,2)) / 2);
             
-            if(typeof value !== 'undefined')
+            if(typeof value !== 'undefined' & value != null)
                 intensity = value;
             
             switch(mode){
@@ -414,6 +427,8 @@
             }
             
             this.context.putImageData(this.pixels,0,0); //updates the new pixels to context
+            
+            if (typeof callback == "function") callback(this);
             
             return this;
         }
