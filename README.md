@@ -2,6 +2,7 @@
 
 A Lightweight native JavaScript library for image manipulation on/using canvas.
 
+<img src="http://i.imgur.com/2cyHLeX.png"></img>
 ####Include Pixzelette:
 ```html
 <script type="text/javascript" src="path/to/pixzelette.min.js"></script>
