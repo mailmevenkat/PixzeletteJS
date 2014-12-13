@@ -193,7 +193,8 @@ var args = {w: width, h: height, x: x-axis, y: y-axis} //args must be a valid ja
 var args = null; //if set to null, default value is used
 ```
 ```javascript
-var filter = "zephyr"; var gradient = "vignette"; //must be a valid javascript string
+var filter = "zephyr"; 
+var gradient = "vignette"; //must be a valid javascript string
 var opacity = 1; //must be a valid javascript integer or float. Range: 0 to 1
 var Pixzel = new Pixzelette(element, args, function(that){
                   that.filter(filter, function(that) {
