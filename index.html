@@ -52,20 +52,22 @@
             margin: 0;
             padding: 0;
         }
-        #about, #filters, #blend, #custom, #basics{
+        #about, #filters, #blend, #custom, #basics, #data, #multiple{
             width: 84%;
             margin: 30px auto; 
             text-align: center;
         }
         
-        #filters, #blend, #custom, #basics{
+        #filters, #blend, #custom, #basics, #data, #multiple{
             padding: 50px 0;
             margin: 0 8%;
             border-bottom: 1px #E62F17 solid;   
         }
         #about{
             padding: 30px 8%;
-            background: #f1f1f1;
+            background: url("res/3.jpg") no-repeat center center, #333;
+            background-size: cover;
+            color: #fff;
             font-size: 20px;
         }
         #container{
@@ -89,7 +91,10 @@
         .download{
             font-size: 15px;
         }
-        .download a, input[type=button], .button-b{
+        .download h3{
+            text-shadow: 0px 0px 5px #000;   
+        }
+        .download a, .download span, input[type=button], .button-b{
             display:inline-block;
             cursor: pointer;
             background: #fff;
@@ -136,9 +141,15 @@
             padding:3px 5px;
             background: #fff;
             display: block;
+            line-height: 20px;
         }
         .guide-line code span{
             color: #888;   
+        }
+        .guide-line code span.highlight{
+            background: #E62F17;
+            color: #fff;
+            font-size: 13.5px;
         }
         .guide-line li{
             font-size: 14px;
@@ -167,6 +178,18 @@
         #copyrights a:hover{
             color: #333;
         }
+        span.tab{
+            padding: 0 80px;
+        }
+        .top{
+            right: 10px;
+            bottom: 10px;
+            position: fixed;
+            color: #E62F17;
+            font-size: 25px;
+            cursor: pointer;
+            text-decoration: none;
+        }
         </style>
     </head>
     <body>
@@ -174,17 +197,21 @@
             <div id="header">
                 <span class="logo"> Pixzelette JS </span>
                 <div class="menu">
-                    <a href="#guide">Learn</a>
-                    <a href="docs/">Hack</a>
+                    <a href="#guide">learn + demos</a>
+                    <a href="docs/">hack</a>
                     <a href="https://github.com/mailmevenkat/PixzeletteJS" class="fa fa-github"></a>
                 </div>
             </div>
             <div id="about" style="margin-top: 70px;">
+                <div class="content">
                 <p>A Lightweight native JavaScript library for image manipulation on/using canvas.</p>
-                <div class="download">
-                    <h3>Download</h3>
-                    <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.js" download> Hack it! (28.1kb) </a>
-                    <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.min.js" download> Minified (10.6kb) </a>
+                    <div class="download">
+                        <h3>Download</h3>
+                        <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.js" download> Hack it! (28.8kb) </a>
+                        <a href="https://raw.githubusercontent.com/mailmevenkat/PixzeletteJS/master/src/pixzelette.min.js" download> Minified (10.7kb) </a>
+                        <h3>Using Bower</h3> 
+                        <span style="cursor: auto;">bower install pixzelette-js</span>
+                    </div>
                 </div>
             </div>
             <h3 class="title" style="text-decoration: underline;" id="guide">#Learn</h3>
@@ -192,62 +219,30 @@
                 <h3>Include Pixzelette:</h3>
                 <code>&lt;script type="text/javascript" src="path/to/pixzelette.min.js"&gt;&lt;/script&gt;</code>
             </div>
-            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
-                <h3>Initialise Pixzelette:</h3>
-                <code>
-                    var element = document.getElementsByTagName("img")[0];
-                </code>
-                    <p style="border-bottom: 1px #ccc solid"></p>
-                <code>
-                    var element = document.getElementsByTagName("canvas")[0];
-                </code><br>
-                <code>
-                    var Pixzel = new Pixzelette(element); <span>//element must be a valid image or canvas</span>
-                    <p style="border-bottom: 1px #ccc solid"></p>
-                    var args = {w: width, h: height, x: x-axis, y: y-axis}<span>//args must be a valid javascript object</span>
-                    <br>var Pixzel = new Pixzelette(element, args); <span>//element must be a valid image or canvas</span>
-                </code>
-            </div>
-            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
-                <h3>Types of manipulation:</h3>
-                <ul>
-                    <li><a href="#basics">Basics</a></li>
-                    <li><a href="#blend">Blends</a></li>
-                    <li><a href="#filters">Filters</a></li>
-                    <li><a href="#custom">Custom Gradients</a></li>
-                </ul>
-            </div>
-            <div class="guide-line" style="width:80%; margin: 0 8%; border-bottom:1px #e62f17 solid;">
-                <h3>How to get data after manipulation?</h3>
-                <code>Pixzel.getCanvas(); <span>//returns canvas element</span></code>
-                <p style="border-bottom: 1px #ccc solid"></p>
-                <code>var type = "jpg"; //must be a valid javascript string. Default is png</code>
-                <code>var quality = 0.8; //must be a valid javascript integer or float. Range: 0 to 1. Default is 1</code>
-                <code>Pixzel.getImage(type, quality); <span>//returns image element</span></code>
-                <code>Pixzel.getDataURL(type, quality); <span>//returns base64 encoded data url</span></code>
-                <p>Available types:</p>
-                    <ul>
-                        <li>png</li>   
-                        <li>jpg</li>   
-                        <li>jpeg</li>   
-                        <li>webp</li>   
-                    </ul>
-                <p style="border-bottom: 1px #ccc solid"></p>
-                <code>Pixzel.getImageData(); <span>//returns pixel data</span></code>
-            </div>
             <div class="guide-line" style="width:80%; margin: 0 8%;">
-                <h3>Note:</h3>
-                <p>This is possible</p>
-                <code>Pixzel.effect({brightness: 0.1}).filter("cassie"); <span>//all manipulators, returns back the object</span></code>
-                <p>This is not possible</p>
-                <code>Pixzel.getCanvas().filter("cassie"); <span>//since getCanvas(), returns back canvas element</span></code>
+                <h3>Topics: (with demo)</h3>
+                <ul>
+                    <li><a href="#basics">How to apply "basic" effects?</a></li>
+                    <li><a href="#blend">How to "blend" two images?</a></li>
+                    <li><a href="#filters">How to apply pre-defined "filters"?</a></li>
+                    <li><a href="#custom">How to apply pre-defined "custom gradients"?</a></li>
+                    <li><a href="#multiple">How to apply all effects together using callbacks?</a></li>
+                    <li><a href="#data">How to get data after manipulation?</a></li>
+                </ul>
             </div>
             <div id="basics">
                 <h3 class="title">#Basics</h3>
                 <div class="guide-line">
                     <h3>Basic:</h3>
+                        <code>var element = document.querySelector("#element1"); <span>//must be a valid image or canvas</span></code><br>
+                    <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                        <p style="border-bottom: 1px #ccc solid"></p>
+                        var args = null; <span>//if set to null, default value is used</span></code><br>
                         <code>var basics = {brightness: 0.5, contrast: 0.5, red: 0.3};</code>
-                        <code>Pixzel.effect(basics);<span>//argument passed must be a valid javascript object</span></code>
+                        <code>var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                   <span class="tab"></span><span class="highlight">that.effect(basics);</span><br>
+                              });
+                        </code>
                     <p>Available Effects:</p>
                     <ul>
                         <li>brightness <span class="range">[ -1 to 1 ]</span></li>
@@ -336,16 +331,18 @@
                 <h3 class="title">#Blends</h3>
                 <div class="guide-line">
                     <h3>Blends:</h3>
-                        <code>
-                            var element = document.getElementsByTagName("img")[1]; <span>//must be a valid image</span>
+                        <code>var element = document.querySelector("#element1"); <span>//must be a valid image or canvas</span></code><br>
+                    <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                        <p style="border-bottom: 1px #ccc solid"></p>
+                        var args = null; <span>//if set to null, default value is used</span></code><br>
+                        <code>var basics = {brightness: 0.5, contrast: 0.5, red: 0.3};</code>
+                        <code>var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                <span class="tab"></span>var element = document.querySelector("#element2"); <span>//must be a valid image or canvas</span><br>
+                                <span class="tab"></span>var mode = "addition"; <span>//must be a valid javascript string</span><br>
+                               <span class="tab"></span>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span><br>
+                                <span class="tab"></span><span class="highlight">that.blend(element, mode, opacity);</span><br>
+                              });
                         </code>
-                            <p style="border-bottom: 1px #ccc solid"></p>
-                        <code>
-                            var element = document.getElementsByTagName("canvas")[1]; <span>//must be a valid canvas</span>
-                        </code><br>
-                        <code>var mode = "addition"; <span>//must be a valid javascript string</span></code>
-                        <code>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span></code>
-                        <code>Pixzel.blend(element, mode, opacity);</code>
                     <p>Available blends: (19 blends)</p>
                     <ul>
                         <li>none</li>
@@ -407,8 +404,16 @@
                 <h3 class="title">#Filters</h3>
                 <div class="guide-line">
                     <h3>Filter:</h3>
+                        <code>
+                            var element = document.querySelector("#element1"); <span>//must be a valid image or canvas</span>                           </code><br>
+                        <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                        <p style="border-bottom: 1px #ccc solid"></p>
+                        var args = null; <span>//if set to null, default value is used</span></code><br>
                         <code>var filter = "tamil";</code>
-                        <code>Pixzel.filter(filter);<span>//argument passed must be a valid javascript string</span></code>
+                        <code>var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                   <span class="tab"></span><span class="highlight">that.filter(filter);</span><br>
+                              });
+                        </code>
                     <p>Available Filters: (17 filters)</p>
                     <ul>
                         <li>antiq</li>
@@ -465,9 +470,18 @@
                 <h3 class="title">#Custom Gradients</h3>
                 <div class="guide-line">
                     <h3>Custom Gradients:</h3>
-                        <code>var gradient = "vignette"; <span>//must be a valid javascript string</span></code>
-                        <code>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span></code>
-                        <code>Pixzel.custom(gradient, opacity);</code>
+                        <code>
+                            var element = document.querySelector("#element1"); <span>//must be a valid image or canvas</span>                           </code><br>
+                        <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                        <p style="border-bottom: 1px #ccc solid"></p>
+                        var args = null; <span>//if set to null, default value is used</span></code><br>
+                        <code>var filter = "tamil";</code>
+                        <code>var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                        <span class="tab"></span>var gradient = "vignette"; <span>//must be a valid javascript string</span><br>
+                                        <span class="tab"></span>var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span><br>
+                                        <span class="tab"></span><span class="highlight">that.custom(gradient, opacity);</span><br>
+                              });
+                        </code>
                     <p>Available Custom gradients: (8 gradients)</p>
                     <ul>
                         <li>vignette</li>
@@ -502,12 +516,81 @@
                     <input type="button" value="reset" onclick= "applyCustom('reset')">
                 </div>
             </div>
+                <div id="multiple">
+                    <h3 class="title">#Multiple</h3>
+                    <div class="guide-line">
+                        <h3>Multiple manipulators:</h3>
+                            <code>
+                                var element = document.querySelector("#element"); <span>//must be a valid image or canvas</span>                           </code><br>
+                            <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                            <p style="border-bottom: 1px #ccc solid"></p>
+                            var args = null; <span>//if set to null, default value is used</span></code><br>
+                            <code>
+                            var filter = "zephyr";
+                            var gradient = "vignette"; <span>//must be a valid javascript string</span><br>
+                            var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span><br>
+                            var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                            <span class="tab"></span><span class="highlight">that.filter(filter).custom(gradient, opacity);</span><br>
+                                  });
+                            </code>
+                    </div><br>
+                    <div class="guide-line">
+                        <h3>Callback inside Callback:</h3>
+                            <code>
+                                var element = document.querySelector("#element"); <span>//must be a valid image or canvas</span>                           </code><br>
+                            <code>var args = {w: width, h: height, x: x-axis, y: y-axis} <span>//args must be a valid javascript object</span> 
+                            <p style="border-bottom: 1px #ccc solid"></p>
+                            var args = null; <span>//if set to null, default value is used</span></code><br>
+                            <code>
+                            var filter = "zephyr";
+                            var gradient = "vignette"; <span>//must be a valid javascript string</span><br>
+                            var opacity = 1; <span>//must be a valid javascript integer or float. Range: 0 to 1</span><br>
+                            var Pixzel = new Pixzelette(element, args, function(that){<br>
+                                <span class="tab"></span><span class="highlight">that.filter(filter, function(that) {</span><br>
+                                <span class="tab"></span>
+                                <span class="tab"></span><span class="highlight">that.custom(gradient, opacity);</span><br>
+                                 <span class="tab"></span><span class="highlight">});</span>
+                                <br>
+                            });
+                            </code>
+                    </div>
+            </div>
+            <a href="#" class="fa fa-arrow-up top"></a>
+            <div id = "data"> 
+                <h3 class="title">#Data</h3>
+                <div class="guide-line">
+                    <h3>How to get data after manipulation?</h3>
+                    <code>var Pixzel = new Pixzelette(element, args, function(that){...});</code><br>
+                    <code>Pixzel.getCanvas(); <span>//returns canvas element</span></code>
+                    <p style="border-bottom: 1px #ccc solid"></p>
+                    <code>var type = "jpg"; //must be a valid javascript string. Default is png</code>
+                    <code>var quality = 0.8; //must be a valid javascript integer or float. Range: 0 to 1. Default is 1</code>
+                    <code>Pixzel.getImage(type, quality); <span>//returns image element</span></code>
+                    <code>Pixzel.getDataURL(type, quality); <span>//returns base64 encoded data url</span></code>
+                    <p>Available types:</p>
+                        <ul>
+                            <li>png</li>   
+                            <li>jpg</li>   
+                            <li>jpeg</li>   
+                            <li>webp</li>   
+                        </ul>
+                    <p style="border-bottom: 1px #ccc solid"></p>
+                    <code>Pixzel.getImageData(); <span>//returns pixel data</span></code>
+                </div>
+                <div class="guide-line">
+                    <h3>Note:</h3>
+                    <p>This is possible</p>
+                    <code>Pixzel.effect({brightness: 0.1}).filter("cassie"); <span>//all manipulators, returns back the object</span></code>
+                    <p>This is not possible</p>
+                    <code>Pixzel.getCanvas().filter("cassie"); <span>//since getCanvas(), returns back canvas element</span></code>
+                </div>
+            </div>
             <div id="copyrights">
                 Code licensed under <a href="http://opensource.org/licenses/mit-license.html" target="_blank">MIT License</a> | Created by <a href="https://twitter.com/mailmevenkat25" target="_blank">Venkateswaran Selvan</a>
             </div>
             </div>
             <script type="text/javascript" src="src/pixzelette.min.js"></script>
-                <script>
+<script>
                   window.onload = function(){
                       bImage = document.querySelector("#bBasics");
                       bConfig = {
@@ -529,30 +612,32 @@
                       cImage = document.querySelector("#bCustom");
                   };
                       function applyFilter(filter){
-                            var Pixzel = new Pixzelette(fImage);
-                            Pixzel.filter(filter);
+                            var Pixzel = new Pixzelette(fImage, null, function(that){
+                                that.filter(filter);
+                            });
                             document.querySelector("#aFiltered").src = Pixzel.getDataURL();
                       }
                       function applyBlend(blend){
                             if(blend == "reset")
                                 document.querySelector("#aBlended").src = bImage0.src;    
                             else {
-                                var Pixzel = new Pixzelette(bImage0);
-                                Pixzel.blend(bImage1, blend, 1);
+                                var Pixzel = new Pixzelette(bImage0, null, function(that){
+                                                that.blend(bImage1, blend, 1);
+                                });
                                 document.querySelector("#aBlended").src = Pixzel.getDataURL();
                             }
                       }
                       function applyCustom(gradient){
                                 if(gradient != "reset"){
-                                    var Pixzel = new Pixzelette(cImage);
-                                    Pixzel.custom(gradient, 1);
+                                    var Pixzel = new Pixzelette(cImage, null, function(that){
+                                                    that.custom(gradient, 1);
+                                    });
                                     document.querySelector("#aCustom").src = Pixzel.getDataURL();
                                 } else
                                     document.querySelector("#aCustom").src = cImage.src;
                       }
 
                       function applyBasics(basics){
-                                var Pixzel = new Pixzelette(bImage);
                                 var config = {};
                                 switch(basics){
                                         case "bPlus": bConfig.brightness += 0.1; break;
@@ -585,9 +670,10 @@
                                     if(bConfig[key] != 0)
                                         config[key] = bConfig[key];
                                 }
-
-                                Pixzel.effect(config);
-
+                                
+                                var Pixzel = new Pixzelette(bImage, null, function(that){
+                                            that.effect(config);
+                                });
                                 if(basics == "reset"){  
                                     for(var key in bConfig){
                                         if(key == "alpha" || key == "value")
